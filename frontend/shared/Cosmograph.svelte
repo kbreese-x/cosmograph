@@ -1,50 +1,52 @@
 <script lang="ts">
-import { onMount, onDestroy, afterUpdate } from 'svelte';
-import { Cosmograph } from '@cosmograph/cosmograph';
-import type { Node, Link } from '../shared/types';
+  import { onMount, onDestroy, afterUpdate } from "svelte";
+  import { Cosmograph } from "@cosmograph/cosmograph";
+  import type { CosmographConfigInterface } from "@cosmograph/cosmograph";
+  import type { Node, Link } from "../shared/types";
+  import { defaultConfig } from "./cosmographConfig";
 
-export let nodes: Node[] = [];
-export let links: Link[] = [];
-export let config: Record<string, any> = {};
+  export let nodes: Node[] = [];
+  export let links: Link[] = [];
+  export let config: Partial<CosmographConfigInterface<Node, Link>> = {};
+  let container: HTMLDivElement;
+  let cosmograph: Cosmograph<Node, Link> | undefined;
 
-let container: HTMLDivElement;
-let cosmograph: Cosmograph<Node, Link> | undefined;
+  onMount(() => {
+    if (!container) return;
 
-onMount(() => {
-  if (!container) return;
-  
-  cosmograph = new Cosmograph(container, config);
-  cosmograph.setData(nodes, links);
-});
+    const mergedConfig = {
+      ...defaultConfig,
+      ...config,
+    } as CosmographConfigInterface<Node, Link>;
+    cosmograph = new Cosmograph(container, mergedConfig);
+    cosmograph.setData(nodes, links);
+  });
 
-afterUpdate(() => {
-  if (!cosmograph) return;
+  afterUpdate(() => {
+    if (!cosmograph) return;
 
-  // Update data when props change
-  cosmograph.setData(nodes, links);
-  
-  // Update config when it changes
-  cosmograph.setConfig(config);
-});
+    cosmograph.setData(nodes, links);
 
-onDestroy(() => {
-  if (cosmograph) {
-    cosmograph.remove();
-  }
-});
+    cosmograph.setConfig({
+      ...defaultConfig,
+      ...config,
+    } as CosmographConfigInterface<Node, Link>);
+  });
+
+  onDestroy(() => {
+    if (cosmograph) {
+      cosmograph.remove();
+    }
+  });
 </script>
 
-<div 
-  bind:this={container} 
-  class="cosmograph-container"
->
-</div>
+<div bind:this={container} class="cosmograph-container"></div>
 
 <style>
-.cosmograph-container {
-  width: 100%;
-  height: 100%;
-  min-height: 400px;
-  position: relative;
-}
+  .cosmograph-container {
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    position: relative;
+  }
 </style>

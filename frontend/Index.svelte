@@ -6,12 +6,23 @@
 	import type { LoadingStatus } from "@gradio/statustracker";
 	import Cosmograph from "./shared/Cosmograph.svelte";
 	import type { Node, Link } from "./shared/types";
+	import type { GraphProps } from "./shared/cosmographConfig";
+	import { createConfig } from "./shared/cosmographConfig";
 
 	export let value: {
 		nodes: Node[];
 		links: Link[];
-		config: Record<string, any>;
 	} | null = null;
+
+	export let backgroundColor: string | undefined = undefined;
+	export let nodeSizeScale: number | undefined = undefined;
+	export let linkWidthScale: number | undefined = undefined;
+	export let disableZoom = false;
+	export let showHoveredNodeLabel = false;
+	export let disableSimulation = false;
+	export let gravity: number | undefined = undefined;
+	export let repulsion: number | undefined = undefined;
+
 	export let label = "Graph";
 	export let elem_id = "";
 	export let elem_classes: string[] = [];
@@ -28,7 +39,16 @@
 
 	$: nodes = value?.nodes || [];
 	$: links = value?.links || [];
-	$: config = value?.config || {};
+	$: graphConfig = createConfig({
+		backgroundColor,
+		nodeSizeScale,
+		linkWidthScale,
+		disableZoom,
+		showHoveredNodeLabel,
+		disableSimulation,
+		gravity,
+		repulsion,
+	});
 </script>
 
 <Block {elem_id} {elem_classes} {visible} {container} {scale} {min_width}>
@@ -41,7 +61,7 @@
 		on:clear_status={() => gradio.dispatch("clear_status", loading_status)}
 	/>
 
-	<Cosmograph {nodes} {links} {config} />
+	<Cosmograph {nodes} {links} config={graphConfig} />
 </Block>
 
 <style>
