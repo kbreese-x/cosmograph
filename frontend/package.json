@@ -24,8 +24,7 @@
     "@cosmograph/cosmograph": "^1.4.2",
     "@gradio/atoms": "0.16.1",
     "@gradio/statustracker": "0.10.12",
-    "@gradio/utils": "0.10.2",
-    "@zerodevx/svelte-json-view": "^1.0.7"
+    "@gradio/utils": "0.10.2"
   },
   "devDependencies": {
     "@gradio/preview": "0.13.1"

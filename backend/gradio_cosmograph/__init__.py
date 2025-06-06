@@ -1,4 +1,4 @@
 
-from .cosmograph import cosmograph
+from .cosmograph import NetworkGraph
 
-__all__ = ['cosmograph']
+__all__ = ["NetworkGraph"]

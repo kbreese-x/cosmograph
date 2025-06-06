@@ -1,7 +1,7 @@
 from gradio.components.base import Component
 
 
-class cosmograph(Component):
+class NetworkGraph(Component):
     def preprocess(self, payload):
         """
         This docstring is used to generate the docs for this custom component.
