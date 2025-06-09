@@ -16,7 +16,10 @@ requires-python = ">=3.10"
 authors = [{ name = "YOUR NAME", email = "YOUREMAIL@domain.com" }]
 keywords = ["gradio-custom-component", "gradio-template-Fallback"]
 # Add dependencies here
-dependencies = ["gradio>=4.0,<6.0"]
+dependencies = [
+    "gradio>=4.0,<6.0",
+    "pip>=25.1.1",
+]
 classifiers = [
   'Development Status :: 3 - Alpha',
   'Operating System :: OS Independent',
