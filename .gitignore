@@ -12,3 +12,4 @@ node_modules
 backend/**/templates/
 .venv/
 examples/
+.env
