@@ -39,7 +39,11 @@ with gr.Blocks() as demo:
     )
     with gr.Row():
         data = gr.JSON(value=sample_data)
-        graph = NetworkGraph(value=sample_data, repulsion=0.5, background_color="#000000", )
+        graph = NetworkGraph(
+            value=sample_data,
+            repulsion=0.5,
+            background_color="#d3d3d3",
+        )
 
 
 if __name__ == "__main__":

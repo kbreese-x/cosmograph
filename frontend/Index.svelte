@@ -8,18 +8,19 @@
 	import type { Node, Link } from "./shared/types";
 	import type { GraphProps } from "./shared/cosmographConfig";
 	import { createConfig } from "./shared/cosmographConfig";
+	import "./shared/global.css";
 
 	export let value: {
 		nodes: Node[];
 		links: Link[];
 	} | null = null;
 
-	export let backgroundColor: string | undefined = undefined;
-	export let nodeSizeScale: number | undefined = undefined;
-	export let linkWidthScale: number | undefined = undefined;
-	export let disableZoom = false;
-	export let showHoveredNodeLabel = false;
-	export let disableSimulation = false;
+	export let background_color: string | undefined = undefined;
+	export let node_size_scale: number | undefined = undefined;
+	export let link_width_scale: number | undefined = undefined;
+	export let disable_zoom = false;
+	export let show_hovered_node_label = false;
+	export let disable_simulation = false;
 	export let gravity: number | undefined = undefined;
 	export let repulsion: number | undefined = undefined;
 
@@ -40,12 +41,12 @@
 	$: nodes = value?.nodes || [];
 	$: links = value?.links || [];
 	$: graphConfig = createConfig({
-		backgroundColor,
-		nodeSizeScale,
-		linkWidthScale,
-		disableZoom,
-		showHoveredNodeLabel,
-		disableSimulation,
+		backgroundColor: background_color,
+		nodeSizeScale: node_size_scale,
+		linkWidthScale: link_width_scale,
+		disableZoom: disable_zoom,
+		showHoveredNodeLabel: show_hovered_node_label,
+		disableSimulation: disable_simulation,
 		gravity,
 		repulsion,
 	});
@@ -63,11 +64,3 @@
 
 	<Cosmograph {nodes} {links} config={graphConfig} />
 </Block>
-
-<style>
-	:global(.cosmograph-container) {
-		border-radius: var(--radius-lg);
-		border: 1px solid var(--border-color-primary);
-		overflow: hidden;
-	}
-</style>

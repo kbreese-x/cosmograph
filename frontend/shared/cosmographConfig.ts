@@ -25,7 +25,7 @@ export const defaultConfig: Partial<CosmographConfigInterface<Node, Link>> = {
   simulationGravity: 0.1,
   simulationRepulsion: 0.1,
   simulationLinkSpring: 1,
-  simulationFriction: 0.85,
+  simulationFriction: 0.95,
   
   // View settings
   fitViewOnInit: true,
